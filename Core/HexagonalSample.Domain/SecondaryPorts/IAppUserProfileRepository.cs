@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HexagonalSample.Domain.SecondaryPorts
 {
-    public interface IProductRepository : IRepository<Product>
+    public interface IAppUserProfileRepository : IRepository<AppUserProfile>
     {
     }
 }

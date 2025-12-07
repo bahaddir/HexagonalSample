@@ -7,13 +7,7 @@ using System.Threading.Tasks;
 
 namespace HexagonalSample.Domain.SecondaryPorts
 {
-
-    //Todo : Kalan Repository Metotları
-    public interface ICategoryRepository
+    public interface ICategoryRepository : IRepository<Category>
     {
-        Task<List<Category>> GetAllAsync();
-        Task<Category> GetByIdAsync(int id);
-        Task CreateAsync(Category category);
-
     }
 }

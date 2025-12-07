@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HexagonalSample.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace HexagonalSample.Domain.Entities
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public DateTime? DeletedDate { get; set; }
+        public DataStatus Status { get; set; }
 
     }
 }
