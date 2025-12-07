@@ -10,29 +10,11 @@ using System.Threading.Tasks;
 
 namespace HexagonalSample.Persistence.EFRepositories
 {
-    public class CategoryRepository : ICategoryRepository
+    public class CategoryRepository : BaseRepository<Category>, ICategoryRepository
     {
-        private readonly MyContext _context;
-
-        public CategoryRepository(MyContext context)
+        public CategoryRepository(MyContext context) : base(context)
         {
-            _context = context;
         }
 
-        public async Task CreateAsync(Category category)
-        {
-            await _context.Categories.AddAsync(category);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task<List<Category>> GetAllAsync()
-        {
-            return await _context.Categories.ToListAsync();
-        }
-
-        public async Task<Category> GetByIdAsync(int id)
-        {
-            return await _context.Categories.FindAsync(id);
-        }
     }
 }

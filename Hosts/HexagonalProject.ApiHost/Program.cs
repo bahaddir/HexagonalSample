@@ -1,7 +1,4 @@
-﻿using HexagonalSample.Application.PrimaryPorts.CategoryPorts;
-using HexagonalSample.Application.PrimaryPorts.ProductPorts;
-using HexagonalSample.Application.UseCases.CategoryUseCases;
-using HexagonalSample.Application.UseCases.ProductUseCases;
+﻿using HexagonalSample.Application.DependencyResolvers;
 using HexagonalSample.Persistence.DependencyResolvers;
 using HexagonalSample.Persistence.EFData;
 using HexagonalSample.WebApi.Controllers;
@@ -18,10 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 //Todo: => UseCase Resolving Refactoring
 //Todo: Mediator paterni refactoring
-builder.Services.AddRepositoryService();
-builder.Services.AddScoped<ICreateCategoryUseCase, CreateCategoryUseCase>();
-builder.Services.AddScoped<ICreateProductUseCase, CreateProductUseCase>();
-builder.Services.AddDbContext<MyContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("MyConnection")));
+
 
 
 
@@ -29,6 +23,15 @@ builder.Services.AddControllers().AddApplicationPart(typeof(CategoryController).
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddPersistenceServices(builder.Configuration);
+builder.Services.AddApplicationServices();
+
+
+builder.Services.AddControllers()
+.AddApplicationPart(typeof(CategoryController).Assembly);
+builder.Services.AddControllers()
+.AddApplicationPart(typeof(ProductController).Assembly);
 
 var app = builder.Build();
 

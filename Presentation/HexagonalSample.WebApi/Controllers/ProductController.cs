@@ -1,5 +1,6 @@
-﻿using HexagonalSample.Application.Mediatr.Commands.CategoryCommands;
-using HexagonalSample.Application.Mediatr.Queries.CategoryQueries;
+﻿
+using HexagonalSample.Application.Mediatr.Commands.ProductCommands;
+using HexagonalSample.Application.Mediatr.Queries.ProductQueries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,15 +11,14 @@ using System.Threading.Tasks;
 
 namespace HexagonalSample.WebApi.Controllers
 {
-    //Dikkat ettiyseniz artık Composition Root normal şartlardaki gibi bu katmanda degildir...BUrası sadece bir Controller kütüphanesidir...Geliştirme bu alanda yapılacaktır...Middleware girişlerinden burasının haberi yoktur...Bu size Persistence'tan tamamen izole olmayı saglar..Ve geliştirirken kullanmamanız gereken , Encapsulation'i bozacak tiplerden uzak bir alan saglar...
 
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoryController : ControllerBase
+    public class ProductController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public CategoryController(IMediator mediator)
+        public ProductController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -26,26 +26,26 @@ namespace HexagonalSample.WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _mediator.Send(new GetCategoryQuery());
+            var result = await _mediator.Send(new GetProductQuery());
             return Ok(result);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var result = await _mediator.Send(new GetCategoryByIdQuery(id));
+            var result = await _mediator.Send(new GetProductByIdQuery(id));
             return Ok(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateCategoryCommand command)
+        public async Task<IActionResult> Create(CreateProductCommand command)
         {
             var result = await _mediator.Send(command);
             return Ok(result);
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(UpdateCategoryCommand command)
+        public async Task<IActionResult> Update(UpdateProductCommand command)
         {
             var result = await _mediator.Send(command);
             return Ok(result);
@@ -54,7 +54,7 @@ namespace HexagonalSample.WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _mediator.Send(new RemoveCategoryCommand(id));
+            var result = await _mediator.Send(new RemoveProductCommand(id));
             return Ok(result);
         }
     }

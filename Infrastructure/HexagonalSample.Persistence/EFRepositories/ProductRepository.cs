@@ -10,29 +10,11 @@ using System.Threading.Tasks;
 
 namespace HexagonalSample.Persistence.EFRepositories
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository : BaseRepository<Product>, IProductRepository
     {
-        private readonly MyContext _context;
-
-        public ProductRepository(MyContext context)
+        public ProductRepository(MyContext context) : base(context)
         {
-            _context = context;
         }
 
-        public async Task CreateAsync(Product product)
-        {
-            await _context.Products.AddAsync(product);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task<List<Product>> GetAllAsync()
-        {
-            return await _context.Products.ToListAsync();
-        }
-
-        public async Task<Product> GetByIdAsync(int id)
-        {
-            return await _context.Products.FindAsync(id);
-        }
     }
 }
